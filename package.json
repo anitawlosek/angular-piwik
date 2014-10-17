@@ -1,0 +1,32 @@
+{
+  "name": "angular-piwik",
+  "version": "0.0.0",
+  "description": "Angular module for Piwik Analytics",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anitawlosek/angular-piwik.git"
+  },
+  "keywords": [
+    "angular",
+    "piwik",
+    "statistics"
+  ],
+  "author": "Anita Włosek <anita.wlosek@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anitawlosek/angular-piwik/issues"
+  },
+  "homepage": "https://github.com/anitawlosek/angular-piwik",
+  "devDependencies": {
+    "gulp": "^3.8.8",
+    "gulp-concat": "^2.4.1",
+    "gulp-jshint": "^1.8.5",
+    "gulp-rename": "^1.2.0",
+    "gulp-sass": "^1.2.0",
+    "gulp-uglify": "^1.0.1"
+  }
+}

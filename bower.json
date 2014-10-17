@@ -1,0 +1,22 @@
+{
+  "name": "angular-piwik",
+  "version": "0.0.0",
+  "homepage": "https://github.com/anitawlosek/angular-piwik",
+  "authors": [
+    "Anita Włosek <a.wlosek@clearcode.cc>"
+  ],
+  "description": "Angular module for Piwik Analytics",
+  "keywords": [
+    "angular",
+    "piwik",
+    "statistics"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
