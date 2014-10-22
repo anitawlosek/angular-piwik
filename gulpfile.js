@@ -2,21 +2,23 @@
 var gulp = require('gulp');
 
 // Plugins
-var jshint = require('gulp-jshint');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var rename = require('gulp-rename');
+var gulpLoadPlugins = require('gulp-load-plugins'),
+    jshint = require('gulp-jshint'),
+    concat = require('gulp-concat'),
+    rename = require('gulp-rename'),
+    uglify = require('gulp-uglify'),
+    karma = require('gulp-karma');
 
 // Lint Task
 gulp.task('lint', function() {
-    return gulp.src('js/*.js')
+    return gulp.src('src/**/*.js')
         .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter('jshint-stylish'));
 });
 
 // Concatenate & Minify JS
-gulp.task('scripts', function() {
-    return gulp.src('js/*.js')
+gulp.task('build', ['lint'], function() {
+    return gulp.src('src/**/*.js')
         .pipe(concat('angular-piwik.js'))
         .pipe(gulp.dest('build'))
         .pipe(rename('angular-piwik.min.js'))
@@ -24,10 +26,21 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('build'));
 });
 
+gulp.task('test', function() {
+    return gulp.src('tests/**/*.spec.js')
+        .pipe(karma({
+            configFile: 'karma.conf.js',
+            action: 'run'
+        }))
+        .on('error', function(err) {
+            throw err;
+        });
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('js/*.js', ['lint', 'scripts']);
+    gulp.watch('src/*.js', ['build']);
 });
 
 // Default Task
-gulp.task('default', ['lint', 'scripts', 'watch']);
+gulp.task('default', ['test', 'lint', 'build', 'watch']);
