@@ -3,13 +3,13 @@
 
     angular
         .module('angularPiwik')
-        .provider('$angularPiwik', angularPiwikProvider);
+        .provider('$piwik', piwikProvider);
 
     /**
      *
      * @returns {{when: when, $get: get}}
      */
-    function angularPiwikProvider(){
+    function piwikProvider(){
 
         var provider,
             defaultParams = {
@@ -48,7 +48,8 @@
          * period: string,
          * date: string,
          * format: string,
-         * token_auth: string}}}
+         * token_auth: string
+         * }}}
          */
         function $get() {
             return {
