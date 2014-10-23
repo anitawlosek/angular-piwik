@@ -1,7 +1,7 @@
 (function(angular){
     'use strict';
 
-    describe('angularPiwik module\n', function() {
+    describe('ngPiwik module\n', function() {
         var angularPiwikModule;
         var dependencies = [];
 
@@ -10,7 +10,7 @@
         };
 
         beforeEach(function(){
-            angularPiwikModule = angular.module('angularPiwik');
+            angularPiwikModule = angular.module('clearcode.components.ngPiwik');
             dependencies = module.requires;
         });
 

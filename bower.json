@@ -1,7 +1,7 @@
 {
-  "name": "angular-piwik",
+  "name": "ng-piwik",
   "version": "0.0.0",
-  "homepage": "https://github.com/anitawlosek/angular-piwik",
+  "homepage": "https://github.com/anitawlosek/ng-piwik",
   "authors": [
     "Anita Włosek <a.wlosek@clearcode.cc>"
   ],
@@ -16,8 +16,7 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "test"
   ],
   "dependencies": {
     "angular": "~1.3.0",

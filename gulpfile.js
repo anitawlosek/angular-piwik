@@ -38,9 +38,22 @@ gulp.task('test', function () {
         });
 });
 
+gulp.task('watch-test', function () {
+    return gulp.src('some_test_tile')
+        .pipe(karma({
+            configFile: 'karma.conf.js',
+            action: 'start'
+        }))
+        .on('error', function(err) {
+            // Make sure failed tests cause gulp to exit non-zero
+            throw err;
+        });
+});
+
 // Watch Files For Changes
 gulp.task('watch', function() {
-    gulp.watch('src/*.js', ['build']);
+    gulp.watch(['src/**/*.js'], ['build']);
+    gulp.watch(['src/**/*.js', 'test/**/*.spec.js'], ['watch-test']);
 });
 
 // Default Task

@@ -1,10 +1,10 @@
 (function() {
     'use strict';
 
-    describe('angularPiwik module\n', function() {
+    describe('ngPiwik module\n', function() {
 
         beforeEach(function(){
-            module('angularPiwik');
+            module('clearcode.components.ngPiwik');
         });
 
         describe('$piwik provider\n', function() {

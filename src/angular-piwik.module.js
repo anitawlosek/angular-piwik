@@ -2,8 +2,6 @@
     'use strict';
 
     angular
-        .module('angularPiwik', [
-
-        ]);
+        .module('clearcode.components.ngPiwik', []);
 
 })(angular);
