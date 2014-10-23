@@ -1,13 +1,5 @@
 (function(angular){
-
-    angular
-        .module('angularPiwik', [
-            'ngMock'
-        ]);
-
-})(angular);
-
-(function(angular){
+    'use strict';
 
     angular
         .module('angularPiwik')

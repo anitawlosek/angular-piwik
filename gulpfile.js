@@ -26,13 +26,14 @@ gulp.task('build', ['lint'], function() {
         .pipe(gulp.dest('build'));
 });
 
-gulp.task('test', function() {
-    return gulp.src('tests/**/*.spec.js')
+gulp.task('test', function () {
+    return gulp.src('some_test_tile')
         .pipe(karma({
             configFile: 'karma.conf.js',
             action: 'run'
         }))
         .on('error', function(err) {
+            // Make sure failed tests cause gulp to exit non-zero
             throw err;
         });
 });
