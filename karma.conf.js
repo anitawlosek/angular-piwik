@@ -17,7 +17,8 @@ module.exports = function(config) {
     files: [
         'bower_components/angular/angular.min.js',
         'bower_components/angular-mocks/angular-mocks.js',
-        'build/angular-piwik.min.js',
+        'src/**/*.module.js',
+        'src/**/*.js',
         'test/**/*.spec.js'
     ],
 

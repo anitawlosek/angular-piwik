@@ -5,53 +5,51 @@
         .module('clearcode.components.ngPiwik', []);
 
 })(angular);
-
 (function(angular){
     'use strict';
 
     angular
         .module('clearcode.components.ngPiwik')
-        .provider('$piwik', piwikProvider);
+        .provider('$piwik', PiwikProvider);
 
     /**
      *
      * @returns {{when: when, $get: $get}}
      */
-    function piwikProvider() {
+    function PiwikProvider() {
 
-        var provider,
-            requests,
-            defaultParams;
+        var $this = this;
+        $this.when = when;
+        $this.requests = {};
 
-        provider = {
-            when: when,
-            $get: $get
-        };
-
-        defaultParams = {
+        $this.requests.defaultParams = {
             module: 'API',
             method: 'Live.getLastVisitsDetails',
             format: 'JSON',
             token_auth: 'anonymous'
         };
 
-        requests = {
-            defaultParams: defaultParams
+        /**
+         * Function $get of provider
+         *
+         * @returns {PiwikProvider}
+         */
+        $this.$get = function() {
+            return $this;
         };
 
+        /**
+         * Function when that added settings to requests table
+         *
+         * @param id
+         * @param params
+         * @returns {PiwikProvider}
+         */
         function when(id, params) {
-            provider.$get.requests[id] = angular.extend(requests.defaultParams, params);
+            $this.requests[id] = angular.extend($this.requests.defaultParams, params);
 
-            return provider;
+            return $this;
         }
-
-        function $get() {
-            return {
-                requests: requests
-            };
-        }
-
-        return provider;
 
     }
 

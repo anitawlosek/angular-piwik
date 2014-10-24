@@ -2,8 +2,7 @@
 var gulp = require('gulp');
 
 // Plugins
-var gulpLoadPlugins = require('gulp-load-plugins'),
-    jshint = require('gulp-jshint'),
+var jshint = require('gulp-jshint'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
