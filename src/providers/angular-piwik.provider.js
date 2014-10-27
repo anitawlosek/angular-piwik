@@ -10,15 +10,20 @@
         .provider('$piwik', PiwikProvider);
 
     /**
-     * Piwik provider
-     *
-     * @returns {{when: when, $get: $get}}
+     * Piwik provider includes:
+     * requests - table of requests to Piwik's API
+     * when - method that added to request to requests table
      */
     function PiwikProvider() {
 
-        var $this = this;
+        var $this = this,
+            baseUrl;
         $this.when = when;
         $this.requests = {};
+        $this.setBaseUrl = setBaseUrl;
+        $this.getBaseUrl = getBaseUrl;
+        $this.setAuthToken = setAuthToken;
+        $this.getAuthToken = getAuthToken;
 
         $this.requests.defaultParams = {
             module: 'API',
@@ -36,19 +41,54 @@
             return $this;
         };
 
-        /**
+         /**
          * Function when that added settings to requests table
          *
-         * @param id
-         * @param params
+         * @param {string} id
+         * @param {Object} params
          * @returns {PiwikProvider}
          */
         function when(id, params) {
-            $this.requests[id] = angular.extend($this.requests.defaultParams, params);
+             $this.requests[id] = angular.extend($this.requests.defaultParams, params);
 
-            return $this;
+             return $this;
         }
 
+        /**
+         * Function setBaseUrl
+         *
+         * @param {string} url
+         */
+        function setBaseUrl(url) {
+            baseUrl = url;
+        }
+
+        /**
+         * Function getBaseUrl
+         *
+         * @returns {string} url
+         */
+        function getBaseUrl() {
+            return baseUrl;
+        }
+
+        /**
+         * Function setAuthToken
+         *
+         * @param {string} token
+         */
+        function setAuthToken(token) {
+            $this.requests.defaultParams.token_auth = token;
+        }
+
+        /**
+         * Function getAuthToken
+         *
+         * @returns {string}
+         */
+        function getAuthToken() {
+            return $this.requests.defaultParams.token_auth;
+        }
     }
 
 })(angular);

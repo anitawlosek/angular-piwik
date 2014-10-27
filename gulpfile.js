@@ -34,7 +34,6 @@ gulp.task('test', function () {
             action: 'run'
         }))
         .on('error', function(err) {
-            // Make sure failed tests cause gulp to exit non-zero
             throw err;
         });
 });
@@ -46,7 +45,6 @@ gulp.task('watch-test', function () {
             action: 'start'
         }))
         .on('error', function(err) {
-            // Make sure failed tests cause gulp to exit non-zero
             throw err;
         });
 });
