@@ -20,17 +20,19 @@
 
             describe('function when', function() {
                 var returnedObject;
+                var id = 'name';
+                var params = {param: ''};
 
                 beforeEach(function() {
-                    returnedObject = $piwikProvider.when('name', {settings: ''});
+                    returnedObject = $piwikProvider.when(id, params);
                 });
 
                 it('should add settings object to requests table', shouldAddToRequests);
                 it('should return provider', shouldReturnProvider);
 
                 function shouldAddToRequests() {
-                    expect($piwikProvider.requests.name).toBeDefined();
-                    expect($piwikProvider.requests.name.settings).toBeDefined();
+                    expect($piwikProvider.requests[id]).toBeDefined();
+                    expect($piwikProvider.requests[id].param).toEqual(params.param);
                 }
 
                 function shouldReturnProvider() {

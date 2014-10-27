@@ -1,11 +1,16 @@
 (function(angular){
     'use strict';
 
+    /**
+     * @ngDoc provider
+     * @name clearcode.components.ngPiwik.$piwik
+     */
     angular
         .module('clearcode.components.ngPiwik')
         .provider('$piwik', PiwikProvider);
 
     /**
+     * Piwik provider
      *
      * @returns {{when: when, $get: $get}}
      */
