@@ -21,7 +21,7 @@
             describe('function when', function() {
                 var returnedObject;
                 var id = 'name';
-                var params = {param: ''};
+                var params = {method: 'someMethod', idSite: 7};
 
                 beforeEach(function() {
                     returnedObject = $piwikProvider.when(id, params);
@@ -32,7 +32,8 @@
 
                 function shouldAddToRequests() {
                     expect($piwikProvider.requests[id]).toBeDefined();
-                    expect($piwikProvider.requests[id].param).toEqual(params.param);
+                    expect($piwikProvider.requests[id].method).toEqual(params.method);
+                    expect($piwikProvider.requests[id].idSite).toEqual(params.idSite);
                 }
 
                 function shouldReturnProvider() {

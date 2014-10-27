@@ -38,7 +38,6 @@
 
         $this.requests.defaultParams = {
             module: 'API',
-            method: 'Live.getLastVisitsDetails',
             format: 'JSON',
             token_auth: 'anonymous'
         };
@@ -60,9 +59,37 @@
          * @returns {PiwikProvider}
          */
         function when(id, params) {
-            $this.requests[id] = angular.extend($this.requests.defaultParams, params);
+             var extendedParams = angular.extend($this.requests.defaultParams, params);
 
-            return $this;
+             if(idIsString(id) && isParamsMatchesStandard(extendedParams)) {
+                 $this.requests[id] = extendedParams;
+             }
+
+             return $this;
+        }
+
+        /**
+         * Function idIsString
+         *
+         * @param id
+         * @returns {boolean}
+         */
+        function idIsString(id) {
+            return typeof(id) === 'string';
+        }
+
+        /**
+         * Function isParamsMatchesStandard
+         *
+         * @param extendedParams
+         * @returns {boolean}
+         */
+        function isParamsMatchesStandard(extendedParams) {
+            return extendedParams.module &&
+                extendedParams.method &&
+                extendedParams.idSite &&
+                extendedParams.format &&
+                extendedParams.token_auth;
         }
 
         /**
