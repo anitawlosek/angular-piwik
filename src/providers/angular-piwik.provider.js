@@ -17,7 +17,7 @@
     function PiwikProvider() {
 
         var $this = this,
-            baseUrl;
+            baseUrl = 'http://demo.piwik.org/';
         $this.when = when;
         $this.requests = {};
         $this.setBaseUrl = setBaseUrl;
@@ -50,7 +50,7 @@
         function when(id, params) {
              var extendedParams = angular.extend($this.requests.defaultParams, params);
 
-             if(idIsString(id) && isParamsMatchesStandard(extendedParams)) {
+             if(isString(id) && isValid(extendedParams)) {
                  $this.requests[id] = extendedParams;
              }
 
@@ -63,22 +63,22 @@
          * @param id
          * @returns {boolean}
          */
-        function idIsString(id) {
+        function isString(id) {
             return typeof(id) === 'string';
         }
 
         /**
-         * Function isParamsMatchesStandard
+         * Function isValid
          *
          * @param extendedParams
          * @returns {boolean}
          */
-        function isParamsMatchesStandard(extendedParams) {
-            return extendedParams.module &&
-                extendedParams.method &&
-                extendedParams.idSite &&
-                extendedParams.format &&
-                extendedParams.token_auth;
+        function isValid(extendedParams) {
+            return typeof(extendedParams.module) === 'string' &&
+            typeof(extendedParams.method) === 'string' &&
+            typeof(extendedParams.idSite) === 'number' &&
+            typeof(extendedParams.format) === 'string' &&
+            typeof(extendedParams.token_auth) === 'string';
         }
 
         /**
