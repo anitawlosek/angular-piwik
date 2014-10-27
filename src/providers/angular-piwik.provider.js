@@ -11,8 +11,15 @@
 
     /**
      * Piwik provider includes:
+     *
      * requests - table of requests to Piwik's API
      * when - method that added to request to requests table
+     * setBaseUrl - baseUrl setter
+     * getBaseUrl - baseUrl getter
+     * setAuthToken - auth_token setter
+     * getAuthToken - auth_token getter
+     *
+     * @constructor
      */
     function PiwikProvider() {
 
@@ -60,6 +67,7 @@
         /**
          * Function idIsString
          *
+         *
          * @param id
          * @returns {boolean}
          */
@@ -75,10 +83,10 @@
          */
         function isValid(extendedParams) {
             return typeof(extendedParams.module) === 'string' &&
-            typeof(extendedParams.method) === 'string' &&
-            typeof(extendedParams.idSite) === 'number' &&
-            typeof(extendedParams.format) === 'string' &&
-            typeof(extendedParams.token_auth) === 'string';
+                   typeof(extendedParams.method) === 'string' &&
+                   typeof(extendedParams.idSite) === 'number' &&
+                   typeof(extendedParams.format) === 'string' &&
+                   typeof(extendedParams.token_auth) === 'string';
         }
 
         /**
@@ -87,7 +95,7 @@
          * @param {string} url
          */
         function setBaseUrl(url) {
-            baseUrl = url;
+            baseUrl = url + '?';
         }
 
         /**
