@@ -1,11 +1,11 @@
 // Karma configuration
-// Generated on Mon Oct 20 2014 16:49:25 GMT+0200 (CEST)
+// Generated on Wed Oct 22 2014 12:04:11 GMT+0200 (CEST)
 
 module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '..',
+    basePath: '',
 
 
     // frameworks to use
@@ -15,7 +15,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'tests/*.spec.js'
+        'bower_components/angular/angular.min.js',
+        'bower_components/angular-mocks/angular-mocks.js',
+        'src/**/*.module.js',
+        'src/**/*.js',
+        'test/**/*.spec.js'
     ],
 
 
@@ -55,7 +59,15 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: [
+        //'Chrome',
+        'PhantomJS'
+    ],
+
+      plugins: [
+          'karma-phantomjs-launcher',
+          'karma-jasmine'
+      ],
 
 
     // Continuous Integration mode
