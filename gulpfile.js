@@ -6,7 +6,8 @@ var jshint = require('gulp-jshint'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify'),
-    karma = require('gulp-karma');
+    karma = require('gulp-karma'),
+    ngAnnotate = require('gulp-ng-annotate');
 
 // Lint Task
 gulp.task('lint', function() {
@@ -19,6 +20,7 @@ gulp.task('lint', function() {
 gulp.task('build', ['lint'], function() {
     return gulp.src('src/**/*.js')
         .pipe(concat('angular-piwik.js'))
+        .pipe(ngAnnotate())
         .pipe(gulp.dest('build'))
         .pipe(rename('angular-piwik.min.js'))
         .pipe(uglify())
