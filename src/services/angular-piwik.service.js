@@ -3,11 +3,11 @@
 
     /**
      * @ngdoc service
-     * @name clearcode.components.ngPiwik.AngularPiwik
+     * @name clearcode.components.ngPiwik.Piwik
      */
     angular
         .module('clearcode.components.ngPiwik')
-        .service('AngularPiwik', AngularPiwik);
+        .service('Piwik', Piwik);
 
     /**
      * Service for piwik statistics
@@ -18,7 +18,7 @@
      *
      * @ngInject
      */
-    function AngularPiwik($http, $q, $piwik) {
+    function Piwik($http, $q, $piwik) {
 
         var self = this;
         self.getStatistic = getStatistic;
@@ -28,23 +28,40 @@
          *
          * @param {string} paramsId
          * @param {Object} [otherParams]
+         * @param {function} [TransformClass]
          *
          * @returns {Promise}
          */
-        function getStatistic(paramsId, otherParams) {
+        function getStatistic(paramsId, otherParams, TransformClass) {
             var params = getParamsObject(paramsId, otherParams),
                 deferred = $q.defer(),
                 baseUrl = $piwik.getBaseUrl();
 
-            $http.get(baseUrl + serialize(params, '?'))
+            $http({
+                get: baseUrl + serialize(params, '?'),
+                transformResponse: processDataProvider(TransformClass)
+            })
                 .success(function (resp) {
-                        deferred.resolve(resp);
+                    deferred.resolve(resp);
                 })
                 .error(function (err) {
                     deferred.resolve(err);
                 });
 
             return deferred.promise;
+        }
+
+
+        function processDataProvider(TransformClass) {
+            return function(data){
+                if(data.length && typeof(TransformClass) === 'function') {
+                    for(var i = 0; i < data.length; i++) {
+                        data[i] = TransformClass(data[i]);
+                    }
+                }
+
+                return data;
+            }
         }
 
         /**

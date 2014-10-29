@@ -7,12 +7,12 @@
             module('clearcode.components.ngPiwik');
         });
 
-        describe('AngularPiwik service\n', function() {
+        describe('Piwik service\n', function() {
 
-            var angularPiwikService;
+            var PiwikService;
 
             beforeEach(inject(function($injector){
-                angularPiwikService = $injector.get('AngularPiwik');
+                PiwikService = $injector.get('Piwik');
             }));
 
             it('should exits\n', serviceShouldExist);
@@ -22,10 +22,17 @@
                 var deferred;
 
                 beforeEach(inject(function($q, $injector) {
+
+                    function TransformeClass(object) {
+                        return {
+                            value1: object.value1
+                        }
+                    }
+
                     var $piwikProvider = $injector.get('$piwik');
                     $piwikProvider.when('name', {method: 'someMethod', idSite: 7});
                     deferred = $q.defer();
-                    returnedObject = angularPiwikService.getStatistic('someMethod');
+                    returnedObject = PiwikService.getStatistic('someMethod', {}, TransformeClass);
                 }));
 
                 it('should return object', shouldReturnPromise);
@@ -39,7 +46,7 @@
             });
 
             function serviceShouldExist() {
-                expect(angularPiwikService).toBeDefined();
+                expect(PiwikService).toBeDefined();
             }
         });
     });
