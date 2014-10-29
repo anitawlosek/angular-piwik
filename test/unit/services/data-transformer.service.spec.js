@@ -42,19 +42,15 @@
                     expect(transformData([])).toEqual([]);
                 }
                 function shouldntTransformResponse() {
-                    var dataTransformer = new DataTransformerService('');
-
-                    transformData = dataTransformer.transform;
+                    transformData = (new DataTransformerService('')).transform;
                     expect(transformData(response)).toBeDefined();
                     expect(transformData(response)).toEqual(response);
 
-                    dataTransformer = new DataTransformerService(123);
-                    transformData = dataTransformer.transform;
+                    transformData = (new DataTransformerService(123)).transform;
                     expect(transformData(response)).toBeDefined();
                     expect(transformData(response)).toEqual(response);
 
-                    dataTransformer = new DataTransformerService({value1: 'a'});
-                    transformData = dataTransformer.transform;
+                    transformData = (new DataTransformerService({value1: 'a'})).transform;
                     expect(transformData(response)).toBeDefined();
                     expect(transformData(response)).toEqual(response);
                 }
