@@ -18,7 +18,7 @@
      *
      * @ngInject
      */
-    function Piwik($http, $q, $piwik) {
+    function Piwik($http, $q, $piwik, DataTransformer) {
 
         var self = this;
         self.getStatistic = getStatistic;
@@ -39,7 +39,7 @@
 
             $http({
                 get: baseUrl + serialize(params, '?'),
-                transformResponse: processDataProvider(TransformClass)
+                transformResponse: DataTransformer(TransformClass)
             })
                 .success(function (resp) {
                     deferred.resolve(resp);
@@ -49,19 +49,6 @@
                 });
 
             return deferred.promise;
-        }
-
-
-        function processDataProvider(TransformClass) {
-            return function(data){
-                if(data.length && typeof(TransformClass) === 'function') {
-                    for(var i = 0; i < data.length; i++) {
-                        data[i] = TransformClass(data[i]);
-                    }
-                }
-
-                return data;
-            }
         }
 
         /**

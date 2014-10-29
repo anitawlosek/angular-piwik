@@ -18,24 +18,18 @@
             it('should exits\n', serviceShouldExist);
 
             describe('function getStatistic', function() {
-                var returnedObject;
-                var deferred;
+                var returnedObject,
+                    deferred;
 
                 beforeEach(inject(function($q, $injector) {
-
-                    function TransformeClass(object) {
-                        return {
-                            value1: object.value1
-                        }
-                    }
 
                     var $piwikProvider = $injector.get('$piwik');
                     $piwikProvider.when('name', {method: 'someMethod', idSite: 7});
                     deferred = $q.defer();
-                    returnedObject = PiwikService.getStatistic('someMethod', {}, TransformeClass);
+                    returnedObject = PiwikService.getStatistic('someMethod');
                 }));
 
-                it('should return object', shouldReturnPromise);
+                it('should return promise', shouldReturnPromise);
 
                 function shouldReturnPromise() {
                     expect(returnedObject).toBeDefined();

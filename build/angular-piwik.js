@@ -157,7 +157,7 @@
      *
      * @ngInject
      */
-    function Piwik($http, $q, $piwik) {
+    function Piwik($http, $q, $piwik, DataTransformer) {
 
         var self = this;
         self.getStatistic = getStatistic;
@@ -178,7 +178,7 @@
 
             $http({
                 get: baseUrl + serialize(params, '?'),
-                transformResponse: processDataProvider(TransformClass)
+                transformResponse: DataTransformer(TransformClass)
             })
                 .success(function (resp) {
                     deferred.resolve(resp);
@@ -188,19 +188,6 @@
                 });
 
             return deferred.promise;
-        }
-
-
-        function processDataProvider(TransformClass) {
-            return function(data){
-                if(data.length && typeof(TransformClass) === 'function') {
-                    for(var i = 0; i < data.length; i++) {
-                        data[i] = TransformClass(data[i]);
-                    }
-                }
-
-                return data;
-            }
         }
 
         /**
@@ -238,6 +225,28 @@
             return str.join('&');
         }
     }
-    Piwik.$inject = ["$http", "$q", "$piwik"];
+    Piwik.$inject = ["$http", "$q", "$piwik", "DataTransformer"];
+
+})(angular);
+(function(angular) {
+    'use strict';
+
+    angular
+        .module('clearcode.components.ngPiwik')
+        .service('DataTransformer', DataTransformerService);
+
+    function DataTransformerService() {
+        return function(TransformClass) {
+            return function(response){
+                if(response.length && typeof(TransformClass) === 'function') {
+                    for(var i = 0; i < response.length; i++) {
+                        response[i] = new TransformClass(response[i]);
+                    }
+                }
+
+                return response;
+            };
+        };
+    }
 
 })(angular);
