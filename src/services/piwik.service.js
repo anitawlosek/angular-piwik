@@ -15,6 +15,7 @@
      * @param $http
      * @param $q
      * @param $piwik
+     * @param DataTransformer
      *
      * @ngInject
      */
