@@ -18,8 +18,7 @@
 
             describe('function processResponse', function() {
                 var response,
-                    processData,
-                    processedResponseData;
+                    processData;
 
                 beforeEach(function() {
                     response = [
@@ -30,12 +29,33 @@
                     ];
 
                     processData = DataTransformerService(TransformClass);
-                    processedResponseData = processData(response);
                 });
 
+                it('should return [] if data is []', shouldReturnEmptyArray);
+                it('should return non-transformed response object if TransformClass is not a function', shouldntTransformResponse);
                 it('should transform response', shouldTransformResponse);
 
+                function shouldReturnEmptyArray() {
+                    expect(processData([])).toBeDefined();
+                    expect(processData([])).toEqual([]);
+                }
+                function shouldntTransformResponse() {
+                    processData = DataTransformerService('');
+                    expect(processData(response)).toBeDefined();
+                    expect(processData(response)).toEqual(response);
+
+                    processData = DataTransformerService(123);
+                    expect(processData(response)).toBeDefined();
+                    expect(processData(response)).toEqual(response);
+
+                    processData = DataTransformerService({value1: 'a'});
+                    expect(processData(response)).toBeDefined();
+                    expect(processData(response)).toEqual(response);
+                }
+
                 function shouldTransformResponse() {
+                    var processedResponseData = processData(response);
+
                     expect(processedResponseData).toBeDefined();
                     expect(processedResponseData).toEqual(jasmine.any(Array));
                     expect(processedResponseData[0].value1).toBeDefined();
