@@ -7,7 +7,7 @@
 
     function DataTransformerService() {
         return function(TransformClass) {
-            return function(response){
+            this.transform = function(response){
                 if(response.length && typeof(TransformClass) === 'function') {
                     for(var i = 0; i < response.length; i++) {
                         response[i] = new TransformClass(response[i]);

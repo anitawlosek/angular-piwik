@@ -146,7 +146,7 @@
 
     function DataTransformerService() {
         return function(TransformClass) {
-            return function(response){
+            this.transform = function(response){
                 if(response.length && typeof(TransformClass) === 'function') {
                     for(var i = 0; i < response.length; i++) {
                         response[i] = new TransformClass(response[i]);
@@ -176,6 +176,7 @@
      * @param $http
      * @param $q
      * @param $piwik
+     * @param DataTransformer
      *
      * @ngInject
      */
@@ -198,10 +199,11 @@
             var params = getParamsObject(paramsId, otherParams),
                 deferred = $q.defer(),
                 baseUrl = $piwik.getBaseUrl(),
+                dataTransformer = new DataTransformer(TransformClass),
 
                 httpConfig = {
                     get: baseUrl + serialize(params, '?'),
-                    transformResponse: new DataTransformer(TransformClass)
+                    transformResponse: dataTransformer.transform
                 };
 
             $http(httpConfig)

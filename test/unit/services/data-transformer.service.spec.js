@@ -18,9 +18,11 @@
 
             describe('function processResponse', function() {
                 var response,
-                    processData;
+                    transformData;
 
                 beforeEach(function() {
+                    var dataTransformer = new DataTransformerService(TransformClass);
+
                     response = [
                         {value1: 'a', value2: 'b', value3: 'c', value4: 'd', value5: 'e'},
                         {value1: 'f', value2: 'g', value3: 'h', value4: 'i', value5: 'j'},
@@ -28,7 +30,7 @@
                         {value1: 'p', value2: 'r', value3: 's', value4: 't', value5: 'u'}
                     ];
 
-                    processData = DataTransformerService(TransformClass);
+                    transformData = dataTransformer.transform;
                 });
 
                 it('should return [] if data is []', shouldReturnEmptyArray);
@@ -36,25 +38,29 @@
                 it('should transform response', shouldTransformResponse);
 
                 function shouldReturnEmptyArray() {
-                    expect(processData([])).toBeDefined();
-                    expect(processData([])).toEqual([]);
+                    expect(transformData([])).toBeDefined();
+                    expect(transformData([])).toEqual([]);
                 }
                 function shouldntTransformResponse() {
-                    processData = DataTransformerService('');
-                    expect(processData(response)).toBeDefined();
-                    expect(processData(response)).toEqual(response);
+                    var dataTransformer = new DataTransformerService('');
 
-                    processData = DataTransformerService(123);
-                    expect(processData(response)).toBeDefined();
-                    expect(processData(response)).toEqual(response);
+                    transformData = dataTransformer.transform;
+                    expect(transformData(response)).toBeDefined();
+                    expect(transformData(response)).toEqual(response);
 
-                    processData = DataTransformerService({value1: 'a'});
-                    expect(processData(response)).toBeDefined();
-                    expect(processData(response)).toEqual(response);
+                    dataTransformer = new DataTransformerService(123);
+                    transformData = dataTransformer.transform;
+                    expect(transformData(response)).toBeDefined();
+                    expect(transformData(response)).toEqual(response);
+
+                    dataTransformer = new DataTransformerService({value1: 'a'});
+                    transformData = dataTransformer.transform;
+                    expect(transformData(response)).toBeDefined();
+                    expect(transformData(response)).toEqual(response);
                 }
 
                 function shouldTransformResponse() {
-                    var processedResponseData = processData(response);
+                    var processedResponseData = transformData(response);
 
                     expect(processedResponseData).toBeDefined();
                     expect(processedResponseData).toEqual(jasmine.any(Array));
