@@ -14,11 +14,11 @@
      *
      * @param $http
      * @param $q
-     * @param $piwikProvider
+     * @param $piwik
      *
      * @ngInject
      */
-    function AngularPiwik($http, $q, $piwikProvider) {
+    function AngularPiwik($http, $q, $piwik) {
 
         var self = this;
         self.getStatistic = getStatistic;
@@ -34,7 +34,7 @@
         function getStatistic(paramsId, otherParams) {
             var params = getParamsObject(paramsId, otherParams),
                 deferred = $q.defer(),
-                baseUrl = $piwikProvider.getBaseUrl();
+                baseUrl = $piwik.getBaseUrl();
 
             $http.get(baseUrl + serialize(params, '?'))
                 .success(function (resp) {
@@ -54,7 +54,7 @@
          * @returns {Object}
          */
         function getParamsObject(paramsId, otherParams) {
-            var params = angular.extend($piwikProvider.requests.defaultParams, $piwikProvider.requests[paramsId]);
+            var params = angular.extend($piwik.requests.defaultParams, $piwik.requests[paramsId]);
 
             if(otherParams) {
                 params = angular.extend(params, otherParams);

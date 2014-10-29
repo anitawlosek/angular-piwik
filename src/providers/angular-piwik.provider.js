@@ -67,7 +67,6 @@
         /**
          * Function idIsString
          *
-         *
          * @param id
          * @returns {boolean}
          */
