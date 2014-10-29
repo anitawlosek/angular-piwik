@@ -33,14 +33,17 @@
          * @returns {Promise}
          */
         function getStatistic(paramsId, otherParams, TransformClass) {
+
             var params = getParamsObject(paramsId, otherParams),
                 deferred = $q.defer(),
-                baseUrl = $piwik.getBaseUrl();
+                baseUrl = $piwik.getBaseUrl(),
 
-            $http({
-                get: baseUrl + serialize(params, '?'),
-                transformResponse: DataTransformer(TransformClass)
-            })
+                httpConfig = {
+                    get: baseUrl + serialize(params, '?'),
+                    transformResponse: new DataTransformer(TransformClass)
+                };
+
+            $http(httpConfig)
                 .success(function (resp) {
                     deferred.resolve(resp);
                 })

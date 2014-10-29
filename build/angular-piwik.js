@@ -137,6 +137,28 @@
     }
 
 })(angular);
+(function(angular) {
+    'use strict';
+
+    angular
+        .module('clearcode.components.ngPiwik')
+        .service('DataTransformer', DataTransformerService);
+
+    function DataTransformerService() {
+        return function(TransformClass) {
+            return function(response){
+                if(response.length && typeof(TransformClass) === 'function') {
+                    for(var i = 0; i < response.length; i++) {
+                        response[i] = new TransformClass(response[i]);
+                    }
+                }
+
+                return response;
+            };
+        };
+    }
+
+})(angular);
 (function (angular) {
     'use strict';
 
@@ -172,14 +194,17 @@
          * @returns {Promise}
          */
         function getStatistic(paramsId, otherParams, TransformClass) {
+
             var params = getParamsObject(paramsId, otherParams),
                 deferred = $q.defer(),
-                baseUrl = $piwik.getBaseUrl();
+                baseUrl = $piwik.getBaseUrl(),
 
-            $http({
-                get: baseUrl + serialize(params, '?'),
-                transformResponse: DataTransformer(TransformClass)
-            })
+                httpConfig = {
+                    get: baseUrl + serialize(params, '?'),
+                    transformResponse: new DataTransformer(TransformClass)
+                };
+
+            $http(httpConfig)
                 .success(function (resp) {
                     deferred.resolve(resp);
                 })
@@ -226,27 +251,5 @@
         }
     }
     Piwik.$inject = ["$http", "$q", "$piwik", "DataTransformer"];
-
-})(angular);
-(function(angular) {
-    'use strict';
-
-    angular
-        .module('clearcode.components.ngPiwik')
-        .service('DataTransformer', DataTransformerService);
-
-    function DataTransformerService() {
-        return function(TransformClass) {
-            return function(response){
-                if(response.length && typeof(TransformClass) === 'function') {
-                    for(var i = 0; i < response.length; i++) {
-                        response[i] = new TransformClass(response[i]);
-                    }
-                }
-
-                return response;
-            };
-        };
-    }
 
 })(angular);
