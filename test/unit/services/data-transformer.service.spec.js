@@ -8,10 +8,10 @@
         });
 
         describe('DataTransformer service\n', function() {
-            var DataTransformerService;
+            var DataTransformer;
 
             beforeEach(inject(function($injector){
-                DataTransformerService = $injector.get('DataTransformer');
+                DataTransformer = $injector.get('clearcode.components.ngPiwik.DataTransformer');
             }));
 
             it('should exits\n', serviceShouldExist);
@@ -21,7 +21,7 @@
                     transformData;
 
                 beforeEach(function() {
-                    var dataTransformer = new DataTransformerService(TransformClass);
+                    var dataTransformer = new DataTransformer(TransformClass);
 
                     response = [
                         {value1: 'a', value2: 'b', value3: 'c', value4: 'd', value5: 'e'},
@@ -42,15 +42,15 @@
                     expect(transformData([])).toEqual([]);
                 }
                 function shouldntTransformResponse() {
-                    transformData = (new DataTransformerService('')).transform;
+                    transformData = (new DataTransformer('')).transform;
                     expect(transformData(response)).toBeDefined();
                     expect(transformData(response)).toEqual(response);
 
-                    transformData = (new DataTransformerService(123)).transform;
+                    transformData = (new DataTransformer(123)).transform;
                     expect(transformData(response)).toBeDefined();
                     expect(transformData(response)).toEqual(response);
 
-                    transformData = (new DataTransformerService({value1: 'a'})).transform;
+                    transformData = (new DataTransformer({value1: 'a'})).transform;
                     expect(transformData(response)).toBeDefined();
                     expect(transformData(response)).toEqual(response);
                 }
@@ -68,14 +68,16 @@
                 }
 
                 function TransformClass(object) {
-                    this.value1 = object.value1;
-                    this.value2 = object.value2;
-                    this.value4 = object.value4;
+                    var $this = this;
+                    
+                    $this.value1 = object.value1;
+                    $this.value2 = object.value2;
+                    $this.value4 = object.value4;
                 }
             });
 
             function serviceShouldExist() {
-                expect(DataTransformerService).toBeDefined();
+                expect(DataTransformer).toBeDefined();
             }
         });
     });

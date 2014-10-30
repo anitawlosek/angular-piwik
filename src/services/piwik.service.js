@@ -7,7 +7,14 @@
      */
     angular
         .module('clearcode.components.ngPiwik')
-        .service('Piwik', Piwik);
+        .service('clearcode.components.ngPiwik.Piwik', Piwik);
+
+    Piwik.$inject = [
+        '$http',
+        '$q',
+        'clearcode.components.ngPiwik.$piwik',
+        'clearcode.components.ngPiwik.DataTransformer'
+    ];
 
     /**
      * Service for piwik statistics

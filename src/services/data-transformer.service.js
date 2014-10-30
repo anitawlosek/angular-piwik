@@ -1,11 +1,15 @@
 (function(angular) {
     'use strict';
 
+    /**
+     * @ngDoc service
+     * @name clearcode.components.ngPiwik.DataTransformer
+     */
     angular
         .module('clearcode.components.ngPiwik')
-        .service('DataTransformer', DataTransformerService);
+        .service('clearcode.components.ngPiwik.DataTransformer', DataTransformer);
 
-    function DataTransformerService() {
+    function DataTransformer() {
         return function(TransformClass) {
             this.transform = function(response){
                 if(response.length && typeof(TransformClass) === 'function') {

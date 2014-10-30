@@ -11,7 +11,7 @@
             var $piwikProvider;
 
             beforeEach(inject(function($injector) {
-                $piwikProvider = $injector.get('$piwik');
+                $piwikProvider = $injector.get('clearcode.components.ngPiwik.$piwik');
             }));
 
             it('should exist\n', providerShouldExist);

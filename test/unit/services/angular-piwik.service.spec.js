@@ -12,7 +12,7 @@
             var PiwikService;
 
             beforeEach(inject(function($injector){
-                PiwikService = $injector.get('Piwik');
+                PiwikService = $injector.get('clearcode.components.ngPiwik.Piwik');
             }));
 
             it('should exits\n', serviceShouldExist);
@@ -23,7 +23,7 @@
 
                 beforeEach(inject(function($q, $injector) {
 
-                    var $piwikProvider = $injector.get('$piwik');
+                    var $piwikProvider = $injector.get('clearcode.components.ngPiwik.$piwik');
                     $piwikProvider.when('name', {method: 'someMethod', idSite: 7});
                     deferred = $q.defer();
                     returnedObject = PiwikService.getStatistic('someMethod');
