@@ -9,7 +9,7 @@
             return dependencies.indexOf(module) >= 0;
         };
 
-        beforeEach(function(){
+        beforeEach(function() {
             angularPiwikModule = angular.module('clearcode.components.ngPiwik');
             dependencies = module.requires;
         });
