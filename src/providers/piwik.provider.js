@@ -7,7 +7,7 @@
      */
     angular
         .module('clearcode.components.ngPiwik')
-        .provider('$piwik', PiwikProvider);
+        .provider('clearcode.components.ngPiwik.$piwik', PiwikProvider);
 
     /**
      * Piwik provider includes:
@@ -66,7 +66,6 @@
 
         /**
          * Function idIsString
-         *
          *
          * @param id
          * @returns {boolean}
