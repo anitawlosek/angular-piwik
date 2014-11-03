@@ -1,4 +1,4 @@
-#ngPiwik
+#ngPiwik [![Build Status](https://secure.travis-ci.org/ArekZc/generator-ngapp.png?branch=developer)](https://travis-ci.org/anitawlosek/ng-piwik)
 Module ngPiwik helps with using Piwik API in your Angular project.
 
 ##Dependencies
