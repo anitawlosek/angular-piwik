@@ -92,3 +92,7 @@ angular
         var results = Piwik.getStatistic('getLastVisitsDetails', {}, TranformClass);
     }]);
 ```
+
+
+##License
+MIT
