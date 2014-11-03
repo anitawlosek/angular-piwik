@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/anitawlosek/angular-piwik.git"
   },
+  "scripts": {
+    "test": "gulp test"
+  },
   "keywords": [
     "angular",
     "piwik",
