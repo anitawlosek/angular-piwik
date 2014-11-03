@@ -46,6 +46,13 @@ angular
         var results = Piwik.getStatistic('yourRequestId', {}, TranformClass);
     }]);
 ```
+$piwikProvider include also methods:
+```
+$piwikProvider.setBaseUrl('http://piwik.api');
+var baseUrl = $piwikProvider.getBaseUrl();
+$piwikProvider.setAuthToken('anonymous');
+var authToken = $piwikProvider.getAuthToken();
+```
 
 ##Example
 
@@ -60,15 +67,11 @@ angular
                method: 'Live.getLastVisitsDetails',
                idSite: 7,
                period: 'day',
-               date: 'today',
-               format: 'JSON',
-               token_auth: 'anonymous'
+               date: 'today'
             })
             .when('getMostRecentVisitorId', {
                method: 'Live.getMostRecentVisitorId',
-               idSite: 7,
-               format: 'JSON',
-               token_auth: 'anonymous'
+               idSite: 7
             });
     }];
 ```
