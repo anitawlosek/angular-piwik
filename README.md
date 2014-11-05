@@ -59,21 +59,21 @@ var authToken = $piwikProvider.getAuthToken();
 Config:
 
 ```
-angular
-    .module('myApp')
-    .config(['clearcode.components.ngPiwik.$piwikProvider', function($piwikProvider) {
-        $piwikProvider
-            .when('getLastVisitsDetails', {
-               method: 'Live.getLastVisitsDetails',
-               idSite: 7,
-               period: 'day',
-               date: 'today'
-            })
-            .when('getMostRecentVisitorId', {
-               method: 'Live.getMostRecentVisitorId',
-               idSite: 7
-            });
-    }];
+ angular
+        .module('myApp')
+        .config(['clearcode.components.ngPiwik.$piwikProvider', function($piwikProvider) {
+            $piwikProvider
+                .when('getLastVisitsDetails', {
+                    method: 'Live.getLastVisitsDetails',
+                    idSite: 7,
+                    period: 'day',
+                    date: 'today'
+                })
+                .when('getMostRecentVisitorId', {
+                    method: 'Live.getMostRecentVisitorId',
+                    idSite: 7
+                });
+        }]);
 ```
 Using service:
 ```
@@ -88,8 +88,25 @@ angular
             $this.city = object.city;
             $this.datetimeObject = new Date(object.lastActionDateTime);
         }
-    
-        var results = Piwik.getStatistic('getLastVisitsDetails', {}, TranformClass);
+    angular
+        .module('myApp')
+        .controller('MyCtrl', ['clearcode.components.ngPiwik.Piwik', '$scope', '$q', function(Piwik, $scope, $q) {
+
+            var TranformClass = function(object) {
+                var $this = this;
+
+                $this.countryCode = object.countryCode;
+                $this.city = object.city;
+                $this.datetimeObject = new Date(object.lastActionDateTime);
+            };
+
+            Piwik.getStatistic('getLastVisitsDetails', {}, TranformClass)
+                .then(function(response) {
+                    $scope.results = response;
+                }, function(error) {
+                    $scope.results = 'error: ' + error;
+                });
+        }]);
     }]);
 ```
 
