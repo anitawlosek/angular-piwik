@@ -48,7 +48,7 @@
                 dataTransformer = new DataTransformer(TransformClass),
 
                 httpConfig = {
-                    get: baseUrl + serialize(params, '?'),
+                    get: baseUrl + '?' + serialize(params, '?'),
                     transformResponse: dataTransformer.transform
                 };
 
