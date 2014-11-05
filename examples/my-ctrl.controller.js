@@ -17,10 +17,8 @@
                 .then(function(response) {
                     $scope.results = response;
                 }, function(error) {
-                    $scope.results = 'błąd: ' + error;
+                    $scope.results = 'error: ' + error;
                 });
-
-            var deferred = $q.defer();
         }]);
 
 })(angular);
