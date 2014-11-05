@@ -48,7 +48,11 @@
                 dataTransformer = new DataTransformer(TransformClass),
 
                 httpConfig = {
-                    get: baseUrl + '?' + serialize(params, '?'),
+                    method: 'GET',
+                    url: baseUrl + '?' + serialize(params),
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
                     transformResponse: dataTransformer.transform
                 };
 
@@ -57,7 +61,7 @@
                     deferred.resolve(resp);
                 })
                 .error(function (err) {
-                    deferred.resolve(err);
+                    deferred.reject(err);
                 });
 
             return deferred.promise;
