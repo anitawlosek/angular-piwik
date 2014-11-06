@@ -43,7 +43,7 @@ angular
             $this.value4 = object.value4;
         }
     
-        var results = Piwik.getStatistic('yourRequestId', {}, TranformClass);
+        var results = Piwik.getStatistic('yourRequestId', {/*optional params*/}, TranformClass);
     }]);
 ```
 $piwikProvider include also methods:
