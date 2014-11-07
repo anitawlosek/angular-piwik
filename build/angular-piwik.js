@@ -66,7 +66,8 @@
          * @returns {PiwikProvider}
          */
         function when(id, params) {
-             var extendedParams = angular.extend($this.requests.defaultParams, params);
+             var extendedParams = JSON.parse(JSON.stringify($this.requests.defaultParams));
+             angular.extend(extendedParams, params);
 
              if(isString(id) && isValid(extendedParams)) {
                  $this.requests[id] = extendedParams;
@@ -239,10 +240,11 @@
          * @returns {Object}
          */
         function getParamsObject(paramsId, otherParams) {
-            var params = angular.extend($piwik.requests.defaultParams, $piwik.requests[paramsId]);
+            var params = JSON.parse(JSON.stringify($piwik.requests.defaultParams));
+            angular.extend(params, $piwik.requests[paramsId]);
 
             if(otherParams) {
-                params = angular.extend(params, otherParams);
+                angular.extend(params, otherParams);
             }
 
             return params;

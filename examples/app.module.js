@@ -158,7 +158,7 @@
                 }
             ];
 
-            $httpBackend.when('GET', 'http://demo.piwik.org/?module=API&format=JSON&token_auth=anonymous&method=Live.getMostRecentVisitorId&idSite=7&period=day&date=today')
+            $httpBackend.when('GET', 'http://demo.piwik.org/?module=API&format=JSON&token_auth=anonymous&method=Live.getLastVisitsDetails&idSite=7&period=day&date=today')
                 .respond(function(){
                     return [200, jsonRecentRealTimeData, {}];
                 });

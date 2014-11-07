@@ -55,7 +55,8 @@
          * @returns {PiwikProvider}
          */
         function when(id, params) {
-             var extendedParams = angular.extend($this.requests.defaultParams, params);
+             var extendedParams = JSON.parse(JSON.stringify($this.requests.defaultParams));
+             angular.extend(extendedParams, params);
 
              if(isString(id) && isValid(extendedParams)) {
                  $this.requests[id] = extendedParams;
