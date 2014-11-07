@@ -1,4 +1,4 @@
-#ngPiwik [![Build Status](https://travis-ci.org/anitawlosek/ng-piwik.svg?branch=master)](https://travis-ci.org/anitawlosek/ng-piwik.svg?branch=master)
+#ngPiwik [![Build Status](https://travis-ci.org/anitawlosek/ng-piwik.svg?branch=master)](https://travis-ci.org/anitawlosek/ng-piwik)
 Module ngPiwik helps with using Piwik API in your Angular project.
 
 ##Dependencies
@@ -43,7 +43,7 @@ angular
             $this.value4 = object.value4;
         }
     
-        var results = Piwik.getStatistic('yourRequestId', {}, TranformClass);
+        var results = Piwik.getStatistic('yourRequestId', {/*optional params*/}, TranformClass);
     }]);
 ```
 $piwikProvider include also methods:
@@ -79,33 +79,22 @@ Using service:
 ```
 angular
     .module('myApp')
-    .controller('MyCtrl', ['clearcode.components.ngPiwik.Piwik', function(Piwik) {
-    
+    .controller('MyCtrl', ['clearcode.components.ngPiwik.Piwik', '$scope', '$q', function(Piwik, $scope, $q) {
+
         var TranformClass = function(object) {
             var $this = this;
-            
+
             $this.countryCode = object.countryCode;
             $this.city = object.city;
             $this.datetimeObject = new Date(object.lastActionDateTime);
-        }
-    angular
-        .module('myApp')
-        .controller('MyCtrl', ['clearcode.components.ngPiwik.Piwik', '$scope', '$q', function(Piwik, $scope, $q) {
+        };
 
-            var TranformClass = function(object) {
-                var $this = this;
-
-                $this.countryCode = object.countryCode;
-                $this.city = object.city;
-                $this.datetimeObject = new Date(object.lastActionDateTime);
-            };
-
-            Piwik.getStatistic('getLastVisitsDetails', {}, TranformClass)
-                .then(function(response) {
-                    $scope.results = response;
-                }, function(error) {
-                    $scope.results = 'error: ' + error;
-                });
+        Piwik.getStatistic('getLastVisitsDetails', {}, TranformClass)
+            .then(function(response) {
+                $scope.results = response;
+            }, function(error) {
+                $scope.results = 'error: ' + error;
+            });
         }]);
     }]);
 ```
